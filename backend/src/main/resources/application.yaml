@@ -1,6 +1,10 @@
 spring:
   application:
     name: backend
+  data:
+    web:
+      pageable:
+        serialization-mode: via-dto
   datasource:
     url: jdbc:postgresql://localhost:5432/flashsale
     username: flashsale
