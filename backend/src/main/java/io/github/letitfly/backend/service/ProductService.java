@@ -1,6 +1,7 @@
 package io.github.letitfly.backend.service;
 
 import io.github.letitfly.backend.dto.ProductResponse;
+import io.github.letitfly.backend.exception.ProductNotFoundException;
 import io.github.letitfly.backend.mapper.ProductMapper;
 import io.github.letitfly.backend.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,5 +19,11 @@ public class ProductService {
 
     public Page<ProductResponse> getProducts(Pageable pageable) {
         return productRepository.findAll(pageable).map(productMapper::toResponse);
+    }
+
+    public ProductResponse getProductById(Long id) {
+        return productRepository.findById(id)
+                .map(productMapper::toResponse)
+                .orElseThrow(() -> new ProductNotFoundException(id));
     }
 }
